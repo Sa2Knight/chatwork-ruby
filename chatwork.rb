@@ -126,6 +126,17 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # ルームのタスク一覧を取得
+  # room_id:     対象のroomID
+  # account_id:  タスクの担当者IDでフィルタリング
+  # assigned_by_account_id: タスクの依頼者IDでフィルタリング
+  # status:      タスクのステータスでフィルタリング(open or done)
+  def getRoomTasks(room_id, params = {})
+    url = '/rooms/' + room_id + '/tasks'
+    res = createHttpObject(url, :get, params)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
