@@ -179,6 +179,23 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # 自分の対するコンタクト承認要求一覧を取得
+  def incomingRequests
+    raise '未実装'
+  end
+
+  # 自分に対するコンタクト承認要求を承認する
+  # request_id: 対象のrequestID
+  def approveRequest(request_id)
+    raise '未実装'
+  end
+
+  # 自分に対するコンタクト承認要求を拒否する
+  # request_id: 対象のrequestID
+  def denyRequest(request_id)
+    raise '未実装'
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
