@@ -49,6 +49,18 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # ルームを新規作成
+  def createRooms
+    raise "未実装"
+  end
+
+  # ルームの情報を取得
+  def getRoom(room_id)
+    url = '/rooms/' + room_id
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : {}
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
