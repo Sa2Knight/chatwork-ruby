@@ -161,6 +161,14 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : {}
   end
 
+  # アップロードされたファイル一覧を取得(最大100件)
+  # room_id: 対象のroomID
+  def getRoomFiles(room_id)
+    url = '/rooms/' + room_id + '/files'
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
