@@ -15,7 +15,8 @@ class Chatwork
   # 自身のユーザ情報を取得する
   def me
     url = '/me'
-    createHttpObject(url, :get)
+    res = createHttpObject(url, :get)
+    return JSON.parse(res.body)
   end
 
   private
