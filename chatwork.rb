@@ -35,6 +35,13 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # 自身のコンタクト一覧を取得
+  def myContacts
+    url = '/contacts'
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
