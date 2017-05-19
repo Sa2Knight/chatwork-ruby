@@ -55,9 +55,21 @@ class Chatwork
   end
 
   # ルームの情報を取得
+  # room_id 取得対象のID
   def getRoom(room_id)
     url = '/rooms/' + room_id
     res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : {}
+  end
+
+  # ルームの情報を更新
+  # room_id:     更新対象のID
+  # description: 更新後のルーム概要
+  # icon_preset: 更新後のルームのアイコンセット
+  # name:        更新後のルーム名
+  def updateRoom(room_id, params = {})
+    url = '/rooms/' + room_id
+    res = createHttpObject(url, :put, params)
     return res.body ? JSON.parse(res.body) : {}
   end
 
@@ -70,7 +82,7 @@ class Chatwork
       api_uri.query = URI.encode_www_form(params) if method == :get
       req = createRequestObject(method, api_uri)
       req["X-ChatWorkToken"] = @token
-      req.body = params.to_json unless method == :get
+      req.set_form_data(params) unless method == :get
       https.request(req)
     end
     # リクエストオブジェクトを生成する
