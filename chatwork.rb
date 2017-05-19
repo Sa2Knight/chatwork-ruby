@@ -169,6 +169,16 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # アップロードされたファイルの情報を取得
+  # room_id: 対象のroomID
+  # file_id: 対象のfileID
+  # create_download_url: 30秒だけファイルをダウンロードできるURLを生成
+  def getFile(room_id, file_id, params = {})
+    url = '/rooms/' + room_id + '/files/' + file_id
+    res = createHttpObject(url, :get, params)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
