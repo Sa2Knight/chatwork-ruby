@@ -20,10 +20,17 @@ class Chatwork
   end
 
   # 自身の未読数、未読To数、未完了タスク数を取得する
-  def status
+  def myStatus
     url = '/my/status'
     res = createHttpObject(url, :get)
     return JSON.parse(res.body)
+  end
+
+  # 自身のタスク一覧を取得する(最大100件)
+  def myTasks
+    url = '/my/tasks'
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
   end
 
   private
