@@ -42,6 +42,13 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # 自身のチャットルーム一覧を取得
+  def myRooms
+    url = '/rooms'
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
