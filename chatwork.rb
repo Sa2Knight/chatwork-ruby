@@ -108,6 +108,15 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # ルームの特定のメッセージを取得
+  # room_id:    対象のroomID
+  # message_id: 対象のmessageID
+  def getMessage(room_id, message_id)
+    url = '/rooms/' + room_id + '/messages/' + message_id
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   # ルームに新規メッセージを送信
   # room_id: 対象のroomID
   # body:    投稿する本文
