@@ -51,7 +51,7 @@ class Chatwork
 
   # ルームを新規作成
   def createRooms
-    raise "未実装"
+    raise '未実装'
   end
 
   # ルームの情報を取得
@@ -71,6 +71,26 @@ class Chatwork
     url = '/rooms/' + room_id
     res = createHttpObject(url, :put, params)
     return res.body ? JSON.parse(res.body) : {}
+  end
+
+  # ルームを退席する
+  # room_id: 退席対象のID
+  def leaveRoom(room_id)
+    raise '未実装'
+  end
+
+  # ルームを削除する
+  # room_id: 削除対象のID
+  def deleteRoom(room_id)
+    raise '未実装'
+  end
+
+  # ルームのメンバー一覧を取得
+  # room_id: 対象のID
+  def getRoomMembers(room_id)
+    url = '/rooms/' + room_id + '/members'
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
   end
 
   private
