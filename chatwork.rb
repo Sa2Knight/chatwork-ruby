@@ -1,6 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'date'
 
 class Chatwork
 
@@ -134,6 +135,20 @@ class Chatwork
   def getRoomTasks(room_id, params = {})
     url = '/rooms/' + room_id + '/tasks'
     res = createHttpObject(url, :get, params)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
+  # ルームにタスクを追加
+  # room_id: 対象のroomID
+  # body:    タスクの内容
+  # to_ids:  担当者のアカウント(array)
+  # limit:   タスクの期限(Time)
+  def createTask(room_id, body, to_ids = [], params = {})
+    url = '/rooms/' + room_id + '/tasks'
+    params[:body] = body
+    params[:to_ids] = to_ids.join(',')
+    params[:limit] = params[:limit].to_i if params[:limit].class == Time
+    res = createHttpObject(url, :post, params)
     return res.body ? JSON.parse(res.body) : []
   end
 
