@@ -93,6 +93,21 @@ class Chatwork
     return res.body ? JSON.parse(res.body) : []
   end
 
+  # ルームのメンバーを更新
+  # room_id: 対象のID
+  def updateRoomMembers(room_id, params = {})
+    raise '未実装'
+  end
+
+  # ルームのメッセージ一覧を取得(最大100件)
+  # room_id: 対象のroomID
+  # force: 常に最新100件のみ取得する場合は1
+  def getRoomMessages(room_id, params = {})
+    url = '/rooms/' + room_id + '/messages'
+    res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
