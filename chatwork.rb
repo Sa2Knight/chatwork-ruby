@@ -27,9 +27,11 @@ class Chatwork
   end
 
   # 自身のタスク一覧を取得する(最大100件)
-  def myTasks
+  # assigned_by_account_id: タスク依頼者のID
+  # status: タスクステータス('open' or 'done')
+  def myTasks(params = {})
     url = '/my/tasks'
-    res = createHttpObject(url, :get)
+    res = createHttpObject(url, :get, params)
     return res.body ? JSON.parse(res.body) : []
   end
 
@@ -39,9 +41,10 @@ class Chatwork
       api_uri = URI.parse(@@API_BASE + url)
       https = Net::HTTP.new(api_uri.host, api_uri.port)
       https.use_ssl = true
+      api_uri.query = URI.encode_www_form(params) if method == :get
       req = createRequestObject(method, api_uri)
       req["X-ChatWorkToken"] = @token
-      req.body = params.to_json
+      req.body = params.to_json unless method == :get
       https.request(req)
     end
     # リクエストオブジェクトを生成する
@@ -57,5 +60,4 @@ class Chatwork
           return Net::HTTP::Delete.new(uri.request_uri)
       end
     end
-
 end
