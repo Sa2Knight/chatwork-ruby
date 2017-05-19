@@ -19,6 +19,13 @@ class Chatwork
     return JSON.parse(res.body)
   end
 
+  # 自身の未読数、未読To数、未完了タスク数を取得する
+  def status
+    url = '/my/status'
+    res = createHttpObject(url, :get)
+    return JSON.parse(res.body)
+  end
+
   private
     # HTTPリクエストを送信する
     def createHttpObject(url, method, params = {})
