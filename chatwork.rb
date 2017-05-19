@@ -101,10 +101,19 @@ class Chatwork
 
   # ルームのメッセージ一覧を取得(最大100件)
   # room_id: 対象のroomID
-  # force: 常に最新100件のみ取得する場合は1
+  # force:   常に最新100件のみ取得する場合は1
   def getRoomMessages(room_id, params = {})
     url = '/rooms/' + room_id + '/messages'
     res = createHttpObject(url, :get)
+    return res.body ? JSON.parse(res.body) : []
+  end
+
+  # ルームに新規メッセージを送信
+  # room_id: 対象のroomID
+  # body:    投稿する本文
+  def sendMessage(room_id, body)
+    url = '/rooms/' + room_id + '/messages'
+    res = createHttpObject(url, :post, {:body => body})
     return res.body ? JSON.parse(res.body) : []
   end
 
