@@ -51,8 +51,18 @@ class Chatwork
   end
 
   # ルームを新規作成
-  def createRooms
-    raise '未実装'
+  # name:                 作成するルームの名称
+  # members_admin_ids:    作成するルームの管理者ユーザ一覧
+  # members_member_ids:   作成するルームの通常ユーザ一覧
+  # members_readonly_ids: 作成するルームの閲覧のみユーザ一覧
+  # description:          ルームの概要
+  # icon_preset:          アイコン一覧
+  def createRoom(name, members_admin_ids, params = {})
+    url = '/rooms'
+    params[:name] = name
+    params[:members_admin_ids] = members_admin_ids.join(',')
+    res = createHttpObject(url, :post, params)
+    return res.body ? JSON.parse(res.body) : {}
   end
 
   # ルームの情報を取得
